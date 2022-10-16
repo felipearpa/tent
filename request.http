@@ -1,0 +1,10 @@
+### Search
+GET https://api.mercadolibre.com/sites/MCO/search?q=Motorola%20G6&offset=0 HTTP/1.1
+
+
+### Item
+GET https://api.mercadolibre.com/items/MCO944675556 HTTP/1.1
+
+
+### Description
+GET https://api.mercadolibre.com/items/MCO944675556/description HTTP/1.1
