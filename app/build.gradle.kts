@@ -13,12 +13,12 @@ plugins {
 android {
     namespace = "com.felipearpa.tent"
 
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.felipearpa.tent"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -45,7 +45,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = listOf("-Xjvm-default=compatibility")
     }
 
     buildFeatures {

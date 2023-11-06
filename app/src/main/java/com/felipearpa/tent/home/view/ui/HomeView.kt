@@ -1,11 +1,21 @@
 package com.felipearpa.tent.home.view.ui
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -24,6 +34,7 @@ private const val DEFAULT_SPACING = 8
 private const val APP_TITLE_FONT_SIZE = 24
 private const val POWERED_BY_FONT_SIZE = 12
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun HomeView(viewModel: HomeViewModel) {
     HomeView(initialFilterText = viewModel.filterTextFlow.value, onFilterClick = viewModel::search)
@@ -48,7 +59,7 @@ private fun HomeView(initialFilterText: String, onFilterClick: (String) -> Unit)
             },
             fontSize = APP_TITLE_FONT_SIZE.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.primaryDarker
+            color = MaterialTheme.colorScheme.primaryDarker
         )
 
         Column(
@@ -83,7 +94,7 @@ private fun HomeView(initialFilterText: String, onFilterClick: (String) -> Unit)
                 end.linkTo(parent.end)
                 bottom.linkTo(parent.bottom)
             },
-            color = MaterialTheme.colors.primaryLight,
+            color = MaterialTheme.colorScheme.primaryLight,
             fontStyle = FontStyle.Italic,
             fontSize = POWERED_BY_FONT_SIZE.sp
         )

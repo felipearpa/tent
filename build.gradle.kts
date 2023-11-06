@@ -1,5 +1,5 @@
 buildscript {
-    val composeCompilerVersion by extra { "1.2.0" }
+    val composeCompilerVersion by extra { "1.5.3" }
 }
 
 @Suppress("DSL_SCOPE_VIOLATION")

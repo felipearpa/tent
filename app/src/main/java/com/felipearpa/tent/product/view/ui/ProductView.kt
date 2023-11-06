@@ -5,9 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,12 +24,10 @@ import com.felipearpa.tent.R
 private const val DEFAULT_SPACING = 8
 private const val NO_SPACING = 0
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppTopBar() {
-    TopAppBar(
-        title = { Text(text = stringResource(id = R.string.product_view_title)) },
-        elevation = NO_SPACING.dp
-    )
+    TopAppBar(title = { Text(text = stringResource(id = R.string.product_view_title)) })
 }
 
 @Composable
@@ -37,11 +36,11 @@ fun ProductView(viewModel: ProductViewModel) {
 
     Scaffold(
         topBar = { AppTopBar() }
-    ) {
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(DEFAULT_SPACING.dp),
+                .padding(paddingValues),
             verticalArrangement = Arrangement.spacedBy(DEFAULT_SPACING.dp)
         ) {
             Filter(filterText = viewModel.filterText, onFilterClick = viewModel::goUp)

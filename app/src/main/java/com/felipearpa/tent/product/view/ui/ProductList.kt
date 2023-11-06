@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import com.felipearpa.tent.formatter.CurrencyFormatter
 import com.felipearpa.tent.product.view.ProductModel
 import com.felipearpa.tent.ui.column.RefreshableLazyColumn
@@ -40,7 +41,12 @@ fun ProductList(
             }
         }
     ) {
-        items(lazyProducts) { product ->
+        items(
+            count = lazyProducts.itemCount,
+            key = lazyProducts.itemKey { product -> product.id },
+            contentType = lazyProducts.itemContentType { "Product" }
+        ) { index ->
+            val product = lazyProducts[index]
             ProductItem(
                 product = product!!,
                 onItemClick = onItemClick,

@@ -4,11 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.LineBreak
@@ -23,7 +22,6 @@ private const val DESCRIPTION_TITLE_FONT_SIZE = 20
 private const val BULLET_STRING = "\u2022"
 private const val TAB_STRING = "\t"
 
-@OptIn(ExperimentalTextApi::class)
 @Composable
 fun ProductDetailDescription(
     description: String,
