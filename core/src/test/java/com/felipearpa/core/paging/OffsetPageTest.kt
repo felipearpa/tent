@@ -1,9 +1,9 @@
 package com.felipearpa.core.paging
 
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.test.assertEquals
 
 @RunWith(Parameterized::class)
 class OffsetPagePreviousTest(
@@ -11,7 +11,6 @@ class OffsetPagePreviousTest(
     private val limit: Int,
     private val expectedPrevious: Int?
 ) {
-
     @Test
     fun `given an offset and a limit when previous() is performed then previous is returned`() {
         val page = OffsetPage(
@@ -23,7 +22,11 @@ class OffsetPagePreviousTest(
 
         val previous = page.previous()
 
-        assertEquals(expectedPrevious, previous)
+        assertEquals(
+            expected = expectedPrevious,
+            actual = previous,
+            message = "Previous value isn't correct"
+        )
     }
 
     companion object {
@@ -38,7 +41,6 @@ class OffsetPagePreviousTest(
             )
         }
     }
-
 }
 
 @RunWith(Parameterized::class)
@@ -48,7 +50,6 @@ class OffsetPageNextTest(
     private val total: Int,
     private val expectedNext: Int?
 ) {
-
     @Test
     fun `given an offset, a limit, and a total when next() is performed then next is returned`() {
         val page = OffsetPage(
@@ -60,7 +61,7 @@ class OffsetPageNextTest(
 
         val next = page.next()
 
-        assertEquals(expectedNext, next)
+        assertEquals(expected = expectedNext, actual = next, message = "Next page isn't correct")
     }
 
     companion object {
@@ -74,5 +75,4 @@ class OffsetPageNextTest(
             )
         }
     }
-
 }

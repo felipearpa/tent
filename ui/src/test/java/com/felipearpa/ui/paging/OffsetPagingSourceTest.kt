@@ -7,14 +7,12 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertTrue
 
 class OffsetPagingSourceTest {
-
     private val offsetPagingQuery = mockk<OffsetPagingQuery<String>>()
     private val offsetPagingSource = OffsetPagingSource(pagingQuery = offsetPagingQuery, limit = 10)
 
@@ -23,7 +21,6 @@ class OffsetPagingSourceTest {
         clearAllMocks()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `given an OffsetPage when an action to load is performed then the OffsetPage is returned`() =
         runTest {
@@ -32,7 +29,7 @@ class OffsetPagingSourceTest {
                     offset = any(),
                     limit = any()
                 )
-            } returns emptyOffsetPage()
+            } returns Result.success(emptyOffsetPage())
 
             val response = offsetPagingSource.load(
                 params = PagingSource.LoadParams.Refresh(
@@ -49,10 +46,9 @@ class OffsetPagingSourceTest {
                 )
             }
 
-            assertTrue(response is PagingSource.LoadResult.Page)
+            assertTrue(actual = response is PagingSource.LoadResult.Page)
         }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `given an api response error when an action to load is performed then error is returned`() =
         runTest {
@@ -61,7 +57,7 @@ class OffsetPagingSourceTest {
                     offset = any(),
                     limit = any()
                 )
-            } throws Exception()
+            } returns Result.failure(Exception())
 
             val response = offsetPagingSource.load(
                 params = PagingSource.LoadParams.Refresh(
@@ -78,6 +74,6 @@ class OffsetPagingSourceTest {
                 )
             }
 
-            assertTrue(response is PagingSource.LoadResult.Error)
+            assertTrue(actual = response is PagingSource.LoadResult.Error)
         }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tent</string>
+    <string name="installment_in_query">en %s %s</string>
+    <string name="free_shipping">Envio gratis</string>
+    <string name="search_action">Buscar</string>
+    <string name="powered_by">Desarrollado por felipearpa</string>
+    <string name="search_placeholder">Digite algún texto para buscar</string>
+    <string name="empty_list">La lista esta vacia</string>
+    <string name="retry_text">Lo siento. El servidor no respondió. Espera un tiempo y vuelva a intentarlo</string>
+    <string name="retry_action">Reintentar</string>
+    <string name="condition_new">Nuevo</string>
+    <string name="condition_used">Usado</string>
+    <string name="sold_items">%d vendidos</string>
+    <string name="available_stock">Stock disponible</string>
+    <string name="quantity">Cantidad</string>
+    <string name="available">Disponibles</string>
+    <string name="description_title">Lo que tienes que saber de este producto</string>
+    <string name="filtered_by">Filtrados por</string>
+    <string name="product_view_title">Productos</string>
+    <string name="product_detail_view_title">Detalle del producto</string>
+    <string name="back_action">Atras</string>
+    <string name="protected_purchase">Compra protegida</string>
+    <string name="protected_purchase_description">Recibe el producto que esperabas o te devolvemos tu dinero</string>
+</resources>

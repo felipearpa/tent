@@ -1,6 +1,5 @@
 package com.felipearpa.tent.home.view.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,21 +27,30 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.felipearpa.core.emptyString
 import com.felipearpa.tent.R
-import com.felipearpa.tent.ui.theme.primaryDarker
-import com.felipearpa.tent.ui.theme.primaryLight
+import com.felipearpa.ui.theme.primaryDarker
+import com.felipearpa.ui.theme.primaryLight
 
 private const val DEFAULT_SPACING = 8
 private const val APP_TITLE_FONT_SIZE = 24
 private const val POWERED_BY_FONT_SIZE = 12
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun HomeView(viewModel: HomeViewModel) {
-    HomeView(initialFilterText = viewModel.filterTextFlow.value, onFilterClick = viewModel::search)
+fun HomeView(viewModel: HomeViewModel, onSearch: (String) -> Unit) {
+    val initialFilterText by viewModel.filterTextFlow.collectAsState()
+
+    HomeView(
+        initialFilterText = initialFilterText,
+        onSearch = { newFilterText ->
+            if (newFilterText.isNotBlank()) {
+                viewModel.storeFilterText(filterText = newFilterText)
+                onSearch(newFilterText)
+            }
+        }
+    )
 }
 
 @Composable
-private fun HomeView(initialFilterText: String, onFilterClick: (String) -> Unit) {
+private fun HomeView(initialFilterText: String, onSearch: (String) -> Unit) {
     var filterText by remember { mutableStateOf(initialFilterText) }
 
     ConstraintLayout(
@@ -82,7 +91,7 @@ private fun HomeView(initialFilterText: String, onFilterClick: (String) -> Unit)
             )
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                Button(onClick = { onFilterClick(filterText) }, enabled = filterText.isNotBlank()) {
+                Button(onClick = { onSearch(filterText) }, enabled = filterText.isNotBlank()) {
                     Text(text = stringResource(id = R.string.search_action))
                 }
             }
@@ -105,5 +114,5 @@ private fun HomeView(initialFilterText: String, onFilterClick: (String) -> Unit)
 @Preview(showBackground = true)
 @Composable
 private fun HomeViewPreview() {
-    HomeView(initialFilterText = emptyString(), onFilterClick = {})
+    HomeView(initialFilterText = emptyString(), onSearch = {})
 }

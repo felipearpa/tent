@@ -10,20 +10,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.felipearpa.product.detail.ui.productDetailView
+import com.felipearpa.product.list.ui.productListView
 import com.felipearpa.tent.home.view.ui.HomeRoute
-import com.felipearpa.tent.product.view.ui.ProductRoute
-import com.felipearpa.tent.productDetail.view.ui.ProductDetailRoute
+import com.felipearpa.tent.home.view.ui.homeView
 import com.felipearpa.tent.ui.theme.TentTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TentTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -33,7 +32,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
 }
 
 @Composable
@@ -45,8 +43,8 @@ fun Content() {
 fun Outlet() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = HomeRoute.route) {
-        HomeRoute.composable(navGraphBuilder = this, navHostController = navController)
-        ProductRoute.composable(navGraphBuilder = this, navHostController = navController)
-        ProductDetailRoute.composable(navGraphBuilder = this, navHostController = navController)
+        homeView(navController = navController)
+        productListView(navController = navController)
+        productDetailView(navController = navController)
     }
 }

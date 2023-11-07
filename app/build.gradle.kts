@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.Packaging
-
 val composeCompilerVersion: String by rootProject.extra
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -17,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.felipearpa.tent"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -98,6 +96,7 @@ dependencies {
     implementation(libs.pager)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
@@ -115,4 +114,9 @@ dependencies {
 dependencies {
     implementation(project(":core"))
     implementation(project(":ui"))
+    implementation(project(":product"))
+}
+
+kapt {
+    correctErrorTypes = true
 }

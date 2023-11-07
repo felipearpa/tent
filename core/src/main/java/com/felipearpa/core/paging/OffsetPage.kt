@@ -2,14 +2,13 @@ package com.felipearpa.core.paging
 
 import com.felipearpa.core.MapFunc
 
-data class OffsetPage<TModel : Any>(
-    val items: List<TModel>,
+data class OffsetPage<Model : Any>(
+    val items: List<Model>,
     val offset: Int,
     val limit: Int,
     val total: Int
 ) {
-
-    fun <TOut : Any> map(mapFunc: MapFunc<TModel, TOut>): OffsetPage<TOut> {
+    fun <Out : Any> map(mapFunc: MapFunc<Model, Out>): OffsetPage<Out> {
         return OffsetPage(
             items = this.items.map(mapFunc),
             offset = 0,
@@ -21,10 +20,9 @@ data class OffsetPage<TModel : Any>(
     fun previous(): Int? = if (offset - limit <= 0) null else offset - limit
 
     fun next(): Int? = if (offset + limit < total) offset + limit else null
-
 }
 
-fun <T : Any> emptyOffsetPage() = OffsetPage<T>(
+fun <Model : Any> emptyOffsetPage() = OffsetPage<Model>(
     items = emptyList(),
     offset = 0,
     limit = 0,

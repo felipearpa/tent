@@ -17,5 +17,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Tent"
 include(":app")
+include(":product")
 include(":ui")
 include(":core")
