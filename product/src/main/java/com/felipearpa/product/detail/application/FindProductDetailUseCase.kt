@@ -21,12 +21,8 @@ class FindProductDetailUseCase @Inject constructor(
                 findProductDescriptionUseCase.execute(productId = productId)
             }
 
-            print("fap -> before")
-
             val productDetailResult = productDetailResultDeferred.await()
             val productDescriptionResult = productDescriptionResultDeferred.await()
-
-            print("fap -> gotten")
 
             if (productDetailResult.isFailure || productDescriptionResult.isFailure)
                 return@coroutineScope Result.failure(RuntimeException())
@@ -34,8 +30,6 @@ class FindProductDetailUseCase @Inject constructor(
             val fullProductDetail = productDetailResult.getOrNull()!!.copy(
                 description = productDescriptionResult.getOrNull()!!
             )
-
-            print("fap -> success")
 
             return@coroutineScope Result.success(fullProductDetail)
         }

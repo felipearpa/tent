@@ -53,16 +53,25 @@ It's async using by coroutines. For example, querying the product's detail, deta
 
 ```kotlin
 coroutineScope {
-    val productDetail =
-        ProductDetailMapper.mapFromDataToDomain(productRepository.findDetail(productId = productId))
+    val productDetailResultDeferred = async {
+        productRepository.findDetail(productId = productId)
+    }
 
-    val productDescriptionDeferred = async {
+    val productDescriptionResultDeferred = async {
         findProductDescriptionUseCase.execute(productId = productId)
     }
 
-    return@coroutineScope productDetail.copy(
-        description = productDescriptionDeferred.await()
+    val productDetailResult = productDetailResultDeferred.await()
+    val productDescriptionResult = productDescriptionResultDeferred.await()
+
+    if (productDetailResult.isFailure || productDescriptionResult.isFailure)
+        return@coroutineScope Result.failure(RuntimeException())
+
+    val fullProductDetail = productDetailResult.getOrNull()!!.copy(
+        description = productDescriptionResult.getOrNull()!!
     )
+
+    return@coroutineScope Result.success(fullProductDetail)
 }
 ```
 
